@@ -62,7 +62,7 @@ def fmo_redfield(sample_id, random_seed):
     return RedfieldModel(ham, hilbert_subspace='gef', unit_convert=CM_FS)
 
 
-def calculate_spectra(task_root, debug, sample_id, random_seed, xopt,
+def calculate_spectra(task_root, debug, sample_id, random_seed, xopt, pop_times,
                       ode_settings):
     logging.info('setting up control pulse and dynamics')
     make_dynamics = fmo_redfield if debug else fmo_zofe
@@ -70,8 +70,7 @@ def calculate_spectra(task_root, debug, sample_id, random_seed, xopt,
     pump = poly_pulse_scaled(xopt)
 
     logging.info('simulating pump')
-    t, state_vec = simulate_pump(dynamical_model, pump, 'x',
-                                 times=[0, 75, 150, 300, 600, 1200, 10000],
+    t, state_vec = simulate_pump(dynamical_model, pump, 'x', times=pop_times,
                                  exact_isotropic_average=True, **ode_settings)
 
     logging.info('calculating spectra')
