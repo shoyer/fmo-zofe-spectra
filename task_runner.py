@@ -11,6 +11,12 @@ import subprocess
 from itertools import groupby, count
 
 
+try:
+    import mkl
+    mkl.set_num_threads(1)
+except ImportError:
+    pass
+
 ROOT = os.getenv('DEV_ROOT') + '/fmo-zofe-spectra'
 
 logging.basicConfig(level=logging.DEBUG,
