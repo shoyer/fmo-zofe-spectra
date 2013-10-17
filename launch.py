@@ -9,7 +9,6 @@ ALL_PARAMETERS = [
         'xopt': xopt,
         'pop_times': pop_times,
         'ode_settings': {
-            'rtol': 1e-6,
             'max_step': 50,
             'nsteps': 1e5
         }
