@@ -9,6 +9,12 @@ ALL_PARAMETERS = [
         'xopt': xopt,
         'pop_times': pop_times,
         'ode_settings': {
+            'method': 'adams',
+            # note: ZVODE was crashing with:
+            # ZVODE--  At T (=R1), too much accuracy requested
+            #    for precision of machine
+            # hopefully this higher rtol will fix it
+            'rtol': 1e-4,
             'max_step': 50,
             'nsteps': 1e5
         }
