@@ -136,9 +136,13 @@ class ShapedPulse(object):
             return self.interpolate_amp_t(x, rw_freq)
 
 
-def poly_pulse_scaled(args, **pulse_args):
-    args = (np.array(args) * np.array([1. / ((n + 2) * 2 ** (n + 1))
-                                       for n in range(len(args))]))
+def poly_pulse(args, **pulse_args):
     sf = lambda x: exp(1j * np.sum(args * x ** np.arange(2, len(args) + 2)))
     return ShapedPulse(shape_func=sf, suppress_errors=True, carrier_freq=12422,
                        **pulse_args)
+
+
+def poly_pulse_scaled(args, **pulse_args):
+    args = (np.array(args) * np.array([1. / ((n + 2) * 2 ** (n + 1))
+                                       for n in range(len(args))]))
+    return poly_pulse(args, **pulse_args)
