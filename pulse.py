@@ -1,6 +1,13 @@
 import numpy as np
 from numpy import exp, mod, ceil, sqrt, log
-from qspectra.constants import CM_FS
+try:
+    from qspectra.constants import CM_FS
+except ImportError:
+    from numpy import pi
+    # multiply by this constant to convert from fs to linear cm^-1:
+    CM_FS_LINEAR = 2.99792458e-5
+    # multiply by this constant to convert from fs to angular cm^-1:
+    CM_FS = pi * 2 * CM_FS_LINEAR
 
 
 class PulseError(Exception):
